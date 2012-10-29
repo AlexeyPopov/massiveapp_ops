@@ -23,4 +23,18 @@ class apache2 {
           notify  => Service["apache2"],
           require => Package["apache2"];
     }
+    exec {
+      "rm /etc/apache2/sites-enabled/000-default":
+        user    => root,
+        group   => root,
+        require => Package["apache2"],
+        notify  => Service["apache2"],
+        unless  => "ls /etc/apache2/sites-enabled/000-default"
+    }
+    exec {
+      "/usr/bin/apt-get update":
+        user    => root,
+        group   => root,
+        before  => [Package["apache2"], Exec["install_passenger"]]
+    }
 }

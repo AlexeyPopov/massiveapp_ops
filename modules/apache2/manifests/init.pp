@@ -28,8 +28,8 @@ class apache2 {
         user    => root,
         group   => root,
         require => Package["apache2"],
-        notify  => Service["apache2"],
-        unless  => "ls /etc/apache2/sites-enabled/000-default"
+        notify  => Service["apache2"]
+        #unless  => "ls /etc/apache2/sites-enabled/000-default"
     }
     exec {
       "/usr/bin/apt-get update":
